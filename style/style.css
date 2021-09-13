@@ -1,0 +1,170 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+/* Set core root defaults */
+html:focus-within {
+    scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+    max-width: 100%;
+    display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* CUSTOM */
+
+body {
+    font-family: 'Urbanist', sans-serif;
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+#get-location-btn {
+    background-color: #1382e2;
+    color: white;
+    border-radius: 5px;
+    padding: 18px 20px 18px 20px;
+    border: none;
+    cursor: pointer;
+    outline: inherit;
+    transition: box-shadow 0.5s;
+    box-shadow: none;
+}
+
+#get-location-btn:hover {
+    box-shadow: 2px 2px 64px 9px rgb(177 208 255);
+}
+
+#get-location-btn:active {
+    -webkit-box-shadow: inset 0 0 30px #00f;
+    -moz-box-shadow: inset 0 0 30px #00f;
+    box-shadow: inset 0 0 30px #00f;
+}
+
+.modal-container {
+    /* opacity: 0; */
+    transition: opacity 0.5s;
+    background-color: white;
+    border-radius: 1%;
+    display: flex;
+    flex-direction: column;
+    padding: 4%;
+    box-shadow: 2px 2px 64px 9px rgb(177 208 255);
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    justify-content: space-between;
+}
+
+.modal-container.active {
+    opacity: 1;
+}
+
+.modal-header {
+    font-size: 2em;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.modal-content .modal-label {
+    font-size: .75em;
+}
+
+.modal-content .latitude,
+.modal-content .longitude,
+.modal-content .altitude {
+    font-size: 1.25em;
+    color: #666;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-actions button {
+    background-color: #0054ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    outline: inherit;
+    border-radius: 5px;
+    padding: 18px 20px 18px 20px;
+    transition: background-color .25s;
+}
+
+.save-btn.saved {
+    background-color: #409675;
+}
+
+/* TABLE */
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+  }
+  /* Zebra striping */
+  /* tr:nth-of-type(odd) { 
+    background: #eee; 
+  } */
+  th { 
+    background: #333; 
+    color: white; 
+    font-weight: bold; 
+  }
+  td, th { 
+    padding: 6px; 
+    border: 1px solid #ccc; 
+    text-align: left; 
+  }

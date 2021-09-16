@@ -16,12 +16,12 @@
     });
 
     var showLoadingState = function () {
-        console.log('loading...');
+        // console.log('loading...');
         document.getElementById('get-location-btn').textContent = 'Getting location...';
     };
 
     var locationSuccess = function (location) {
-        console.log('%c got location', 'color: green');
+        // console.log('%c got location', 'color: green');
         clearInterval(loadingLocation);
         document.getElementById('get-location-btn').textContent = 'Find me';
         var modalContainer = document.createElement('div');
@@ -126,21 +126,26 @@
             // something in storage, render it on page
             var savedLocations = document.createElement('div');
             savedLocations.className ='saved-locations';
-            var data = {};
-            for (var i = 0; i < localStorage.length; i++){
+            var dataObj = {};
+            var dataArr = [];
+            let locationObj;
+            let i;
+            let j;
+            for (i = 0; i < localStorage.length; i++){
+                dataArr.push(JSON.parse(localStorage.getItem(localStorage.key(i))).date);
+                locationObj = JSON.parse(localStorage.getItem(localStorage.key(i)));
+                dataObj[locationObj.date] = locationObj;
+            }
+            // sort dates
+            dataArr.sort(function(a,b){
+                return a - b;
+            })
+            for (j = 0; j < dataArr.length; j++){
                 var location = document.createElement('div');
                 location.className = 'location';
-                let locationObj = JSON.parse(localStorage.getItem(localStorage.key(i)));
-                data[locationObj.date] = locationObj;
-                location.innerHTML = `${new Date(locationObj.date).toLocaleTimeString('en-US')}, ${locationObj.lat}, ${locationObj.lon}`
+                location.innerHTML = `${new Date(dataObj[dataArr[j]].date).toLocaleTimeString('en-US')}, ${dataObj[dataArr[j]].lat}, ${dataObj[dataArr[j]].lon}`
                 savedLocations.append(location);
             }
-            // sort data
-            // console.log(data)
-            // Object.entries(data).forEach(function ([key, value]) {
-            //     // console.log(key, value);
-                
-            // })
             var clearBtn = document.createElement('button');
             clearBtn.className = 'clear-btn';
             clearBtn.textContent = 'Clear Locations';

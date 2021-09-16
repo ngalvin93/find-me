@@ -66,9 +66,13 @@ body {
 }
 
 #get-location-btn {
-    background-color: #1382e2;
+    width: 150px;
+    height: 150px;
+    /* background-color: #1382e2; */
+    background: rgb(238,125,174);
+    background: radial-gradient(circle, rgb(255 71 148) 0%, rgb(219 255 143) 100%);
     color: white;
-    border-radius: 5px;
+    border-radius: 50%;
     padding: 18px 20px 18px 20px;
     border: none;
     cursor: pointer;

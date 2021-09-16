@@ -1,4 +1,5 @@
 (function(){
+    var loadingLocation;
     var geoLocationOptions = {
         enableHighAccuracy: true,
         timeout: 5000,
@@ -11,9 +12,18 @@
     getLocationBtn.addEventListener('click', function (e) {
         e.preventDefault();
         navigator.geolocation.getCurrentPosition(locationSuccess, locationError, geoLocationOptions);
+        loadingLocation = setInterval(showLoadingState, 200);
     });
 
+    var showLoadingState = function () {
+        console.log('loading...');
+        document.getElementById('get-location-btn').textContent = 'Getting location...';
+    };
+
     var locationSuccess = function (location) {
+        console.log('%c got location', 'color: green');
+        clearInterval(loadingLocation);
+        document.getElementById('get-location-btn').textContent = 'Find me';
         var modalContainer = document.createElement('div');
         modalContainer.className = 'modal-container';
         var modalHeader = document.createElement('div');
@@ -87,6 +97,7 @@
     };
 
     var locationError = function (err) {
+        // TODO dont display modal & show error
         console.error('Error: ', err);
     };
 
@@ -125,17 +136,29 @@
                 savedLocations.append(location);
             }
             // sort data
-            console.log(data)
-            Object.entries(data).forEach(function ([key, value]) {
-                // console.log(key, value);
+            // console.log(data)
+            // Object.entries(data).forEach(function ([key, value]) {
+            //     // console.log(key, value);
                 
-            })
+            // })
             var clearBtn = document.createElement('button');
             clearBtn.className = 'clear-btn';
             clearBtn.textContent = 'Clear Locations';
+
+            clearBtn.addEventListener('click', function () {
+                localStorage.clear();
+                createTable();
+            })
+
             main.appendChild(savedLocations);
             main.appendChild(clearBtn);
         } else {
+            // local storage clear
+            // clear the existing list of locations, if any
+            if (document.querySelector(".saved-locations")) {
+                main.removeChild(document.querySelector(".saved-locations")); // remove location section
+                main.removeChild(document.querySelector(".clear-btn")); // remove clear btn
+            }
             // nothing in storage, render "No locations saved"
             let text = document.createElement('div');
             text.className = "empty";

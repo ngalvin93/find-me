@@ -91,7 +91,7 @@
             saveBtn.classList.add('saved');
             saveBtn.innerHTML = 'Saved!';
             saveBtn.disabled = true;
-            restartTable(createTable);
+            restartTable(init);
         })
 
     };
@@ -118,14 +118,73 @@
         callback()
     };
 
-    var createTable = function () {
+    /**
+     * 
+     * @param {Object} dataObj Data object
+     * @param {Array} dataArr Ordered array of timestamps
+     */
+    var createTableDOM = function (dataArr) {
+        // console.log(dataArr)
+        var tableDataOrder = ['date', 'lat', 'lon', 'alt'];
+        var table = document.createElement('table');
+        table.className = 'location-table';
+        var head = document.createElement('thead');
+        var headRow = document.createElement('tr');
+        var headDate = document.createElement('th');
+        headDate.textContent = 'Date';
+        var headLat = document.createElement('th');
+        headLat.textContent = 'Latitude';
+        var headLon = document.createElement('th');
+        headLon.textContent = 'Longitude';
+        var headAlt = document.createElement('th');
+        headAlt.textContent = 'Altitude';
+        var body = document.createElement('tbody');
+
+        var row;
+        for (let i = 0; i < dataArr.length; i++) {
+            row = document.createElement('tr');
+            let currLoc = dataArr[i]
+            // console.log(currLoc);
+            for (let j = 0; j < tableDataOrder.length; j++) {
+                let data = document.createElement('td');
+                switch (tableDataOrder[j]) {
+                    case 'date':
+                        data.textContent = new Date(currLoc[tableDataOrder[j]]).toLocaleString();
+                        break;
+                    case 'lat':
+                        data.textContent = currLoc[tableDataOrder[j]];
+                        break;
+                    case 'lon':
+                        data.textContent = currLoc[tableDataOrder[j]];
+                        break;
+                    case 'alt':
+                        let text = currLoc[tableDataOrder[j]] === 'Unavailable' ? '-' : currLoc[tableDataOrder[j]]
+                        data.textContent = text;
+                        break;
+                }
+                row.appendChild(data);
+            }
+            body.appendChild(row);
+        }
+
+        headRow.appendChild(headDate);
+        headRow.appendChild(headLat);
+        headRow.appendChild(headLon);
+        headRow.appendChild(headAlt);
+        head.appendChild(headRow);
+        table.appendChild(head);
+        table.appendChild(body);
+        main.appendChild(table);
+    };
+
+    var init = function () {
         if (localStorage.length !== 0) {
             if (document.querySelector('.empty')) {
                 main.removeChild(document.querySelector('.empty'));
             }
             // something in storage, render it on page
-            var savedLocations = document.createElement('div');
-            savedLocations.className ='saved-locations';
+            // var savedLocations = document.createElement('div');
+            // savedLocations.className ='saved-locations';
             var dataObj = {};
             var dataArr = [];
             let locationObj;
@@ -140,28 +199,30 @@
             dataArr.sort(function(a,b){
                 return a - b;
             })
-            for (j = 0; j < dataArr.length; j++){
-                var location = document.createElement('div');
-                location.className = 'location';
-                location.innerHTML = `${new Date(dataObj[dataArr[j]].date).toLocaleTimeString('en-US')}, ${dataObj[dataArr[j]].lat}, ${dataObj[dataArr[j]].lon}`
-                savedLocations.append(location);
+            let out = []
+            for (j = 0; j < dataArr.length; j++) {
+                out.push(dataObj[dataArr[j]]);
             }
+            if (document.querySelector('.location-table')) {
+                main.removeChild(document.querySelector('.location-table'));
+            }
+            createTableDOM(out);
             var clearBtn = document.createElement('button');
             clearBtn.className = 'clear-btn';
             clearBtn.textContent = 'Clear Locations';
 
             clearBtn.addEventListener('click', function () {
                 localStorage.clear();
-                createTable();
+                init();
             })
 
-            main.appendChild(savedLocations);
+            // main.appendChild(savedLocations);
             main.appendChild(clearBtn);
         } else {
             // local storage clear
             // clear the existing list of locations, if any
-            if (document.querySelector(".saved-locations")) {
-                main.removeChild(document.querySelector(".saved-locations")); // remove location section
+            if (document.querySelector(".location-table")) {
+                main.removeChild(document.querySelector(".location-table")); // remove location section
                 main.removeChild(document.querySelector(".clear-btn")); // remove clear btn
             }
             // nothing in storage, render "No locations saved"
@@ -172,6 +233,6 @@
         }
     };
 
-    createTable();
+    init();
 
 })()

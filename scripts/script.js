@@ -16,14 +16,14 @@
     });
 
     var showLoadingState = function () {
-        // console.log('loading...');
-        document.getElementById('get-location-btn').textContent = 'Getting location...';
+        // TODO add css pulse to button
+        getLocationBtn.textContent = 'Getting location...';
     };
 
     var locationSuccess = function (location) {
         // console.log('%c got location', 'color: green');
         clearInterval(loadingLocation);
-        document.getElementById('get-location-btn').textContent = 'Find me';
+        getLocationBtn.textContent = 'Find me';
         var modalContainer = document.createElement('div');
         modalContainer.className = 'modal-container';
         var modalHeader = document.createElement('div');
@@ -57,7 +57,7 @@
         longitude.innerHTML = location.coords.longitude ? location.coords.longitude : 'Unavailable';
         altitude.innerHTML = location.coords.altitude ? location.coords.altitude : 'Unavailable';
         closeBtn.innerHTML = 'Close';
-        saveBtn.innerHTML = 'Save Location';
+        saveBtn.innerHTML = 'Save';
 
         modalContent.appendChild(latitudeLabel);
         modalContent.appendChild(latitude);

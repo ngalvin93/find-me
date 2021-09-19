@@ -153,13 +153,13 @@
                         data.textContent = new Date(currLoc[tableDataOrder[j]]).toLocaleString();
                         break;
                     case 'lat':
-                        data.textContent = currLoc[tableDataOrder[j]];
+                        data.textContent = Math.round(currLoc[tableDataOrder[j]] * 100) / 100;
                         break;
                     case 'lon':
-                        data.textContent = currLoc[tableDataOrder[j]];
+                        data.textContent = Math.round(currLoc[tableDataOrder[j]] * 100) / 100;
                         break;
                     case 'alt':
-                        let text = currLoc[tableDataOrder[j]] === 'Unavailable' ? '-' : currLoc[tableDataOrder[j]]
+                        let text = currLoc[tableDataOrder[j]] === 'Unavailable' ? '-' : Math.round(currLoc[tableDataOrder[j]] * 100) / 100;
                         data.textContent = text;
                         break;
                 }

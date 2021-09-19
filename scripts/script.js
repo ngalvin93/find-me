@@ -23,7 +23,7 @@
     var locationSuccess = function (location) {
         // console.log('%c got location', 'color: green');
         clearInterval(loadingLocation);
-        getLocationBtn.textContent = 'Find me';
+        getLocationBtn.textContent = 'FIND ME';
         var modalContainer = document.createElement('div');
         modalContainer.className = 'modal-container';
         var modalHeader = document.createElement('div');
@@ -113,7 +113,8 @@
             main.removeChild(document.querySelector('.empty'))
         }
         if (document.querySelector('.clear-btn')) {
-            main.removeChild(document.querySelector('.clear-btn'));
+            // main.removeChild(document.querySelector('.clear-btn'));
+            document.body.removeChild(document.querySelector('.clear-btn'));
         }
         callback()
     };
@@ -174,7 +175,8 @@
         head.appendChild(headRow);
         table.appendChild(head);
         table.appendChild(body);
-        main.appendChild(table);
+        // main.appendChild(table);
+        document.body.appendChild(table);
     };
 
     var init = function () {
@@ -204,7 +206,7 @@
                 out.push(dataObj[dataArr[j]]);
             }
             if (document.querySelector('.location-table')) {
-                main.removeChild(document.querySelector('.location-table'));
+                document.body.removeChild(document.querySelector('.location-table'));
             }
             createTableDOM(out);
             var clearBtn = document.createElement('button');
@@ -217,18 +219,19 @@
             })
 
             // main.appendChild(savedLocations);
-            main.appendChild(clearBtn);
+            // main.appendChild(clearBtn);
+            document.body.appendChild(clearBtn);
         } else {
             // local storage clear
             // clear the existing list of locations, if any
             if (document.querySelector(".location-table")) {
-                main.removeChild(document.querySelector(".location-table")); // remove location section
-                main.removeChild(document.querySelector(".clear-btn")); // remove clear btn
+                document.body.removeChild(document.querySelector(".location-table")); // remove location section
+                document.body.removeChild(document.querySelector(".clear-btn")); // remove clear btn
             }
             // nothing in storage, render "No locations saved"
             let text = document.createElement('div');
             text.className = "empty";
-            text.innerHTML = 'No locations saved.';
+            text.textContent = 'No locations saved';
             main.appendChild(text);
         }
     };

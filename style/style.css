@@ -149,7 +149,8 @@ body {
     justify-content: space-between;
 }
 
-.modal-actions button {
+.modal-actions button,
+.clear-btn {
     background-color: #0054ff;
     color: white;
     border: none;
@@ -170,18 +171,29 @@ table {
     border-collapse: collapse; 
     position: relative;
     top: -2em;
-    }
+    margin: auto;
+    cursor: default;
+}
+
   /* Zebra striping */
-  tr:nth-of-type(odd) { 
+tr:nth-of-type(odd) { 
     background: rgb(252, 252, 252); 
-  }
-  th { 
+}
+
+th { 
     background: #e4e5e6; 
     color: black; 
     /* font-weight: bold;  */
-  }
-  td, th { 
+}
+
+td, th { 
     padding: 6px; 
     /* border: 1px solid #ccc;  */
     text-align: left; 
-  }
+}
+
+/* Clear Button */
+.clear-btn {
+    display: block;
+    margin: auto;
+}

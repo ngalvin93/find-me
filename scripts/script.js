@@ -150,16 +150,16 @@
                 let data = document.createElement('td');
                 switch (tableDataOrder[j]) {
                     case 'date':
-                        data.textContent = new Date(currLoc[tableDataOrder[j]]).toLocaleString();
+                        data.textContent = new Date(currLoc[tableDataOrder[j]]).toLocaleString().replace(/(.*)\D\d+/, '$1');
                         break;
                     case 'lat':
-                        data.textContent = Math.round(currLoc[tableDataOrder[j]] * 100) / 100;
+                        data.textContent = currLoc[tableDataOrder[j]];
                         break;
                     case 'lon':
-                        data.textContent = Math.round(currLoc[tableDataOrder[j]] * 100) / 100;
+                        data.textContent = currLoc[tableDataOrder[j]];
                         break;
                     case 'alt':
-                        let text = currLoc[tableDataOrder[j]] === 'Unavailable' ? '-' : Math.round(currLoc[tableDataOrder[j]] * 100) / 100;
+                        let text = currLoc[tableDataOrder[j]] === 'Unavailable' ? '-' : currLoc[tableDataOrder[j]];
                         data.textContent = text;
                         break;
                 }
@@ -213,7 +213,9 @@
             clearBtn.className = 'clear-btn';
             clearBtn.textContent = 'Clear Locations';
 
-            clearBtn.addEventListener('click', function () {
+            clearBtn.addEventListener('click', function (e) {
+                // TODO add confirmation modal
+                e.preventDefault();
                 localStorage.clear();
                 init();
             })
